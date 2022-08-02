@@ -1,15 +1,17 @@
 package Netology.Multithread_Functional.Multithread;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
 
 public class Main {
-    private static int threadsCount = 4;
-    public static void main(String[] args) throws InterruptedException {
-        ThreadGroup threadGroup = new ThreadGroup("group");
-        Arrays.stream(new MyThread[threadsCount]).
-                map(x -> new MyThread(threadGroup,"Thread " + threadsCount-- )).
-                forEach(MyThread::start);
-        Thread.sleep(15000);
-        threadGroup.interrupt();
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        List<MyCallable> myCallables = new ArrayList<>();
+        for (int i = 1; i <= 10 ; i++) {
+            myCallables.add(new MyCallable("Thread " + i, 4 ));
+        }
+        ExecutorService threadPoll =  Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        System.out.println("\nБыстрее всех был: " + threadPoll.invokeAny(myCallables).getName() + "\n");
+        threadPoll.shutdown();
     }
 }
