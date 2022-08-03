@@ -1,4 +1,5 @@
 # MultiThread
+[Наблюдения по задаче 3](https://github.com/MsLFoxGit/MultiThread/blob/master/README.md#L45)
 ____
 ## Задача 1. Межпоточный диалог
 #### Описание
